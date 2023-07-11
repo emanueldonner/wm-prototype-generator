@@ -1,0 +1,46 @@
+wm-list[type="row"] > :is(ol, ul) > li {
+  align-items: start;
+  display: flex;
+  gap: var(--list-gap);
+  margin: 0;
+  padding-block-end: var(--list-gap);
+}
+
+wm-list[type="row"] > :is(ol, ul) > li + li {
+  border-block-start: var(--list-border) var(--list-border-color);
+  padding-block-start: var(--list-gap);
+}
+
+wm-list[type="row"] > :is(ol, ul) > li > wm-icon {
+  position: relative;
+  top: 2px;
+}
+
+wm-list[clean="true"] > :is(ol, ul) > li {
+  display: flex;
+  gap: var(--list-gap);
+  margin: 0;
+}
+
+wm-list[type="horizontal"] > :is(ol, ul) > li {
+  margin: 0;
+}
+
+wm-list[type="horizontal"][separator="pipe"] {
+  line-height: 1;
+}
+
+wm-list[type="horizontal"][separator="pipe"] > :is(ol, ul) > li + li {
+  border-inline-start: 2px solid var(--list-border-color);
+  padding-inline-start: var(--list-gap);
+}
+
+wm-list li wm-icon {
+  position: relative;
+  top: 2px;
+}
+
+/* wm-list Innerhalb einer wm-cta komponente (zB wie bei feed eingesetzt  */
+wm-cta[start="true"] wm-list[clean="true"] > :is(ol, ul) > li{
+  flex-direction: row-reverse;
+}

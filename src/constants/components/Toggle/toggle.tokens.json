@@ -1,0 +1,29 @@
+{
+  "toggle": {
+    "border": {
+      "name": "Rahmen",
+      "default": "none",
+      "$value": "none"
+    },
+    "icon": {
+      "name": "Dropdown Icon",
+      "default": "none",
+      "$value": "url('/public/wiener-melange/icons/chevron-down.svg')"
+    },
+    "padding": {
+      "name": "Innenabstand",
+      "default": "0",
+      "$value": "0"
+    },
+    "padding-button": {
+      "name": "Innenabstand im Button",
+      "default": "0",
+      "$value": "0"
+    },
+    "padding-content": {
+      "name": "Innenabstand im Inhalt",
+      "default": "0",
+      "$value": "0"
+    }
+  }
+}

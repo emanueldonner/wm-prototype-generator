@@ -1,0 +1,7 @@
+:root {
+  --_toggle-border: none;
+  --_toggle-icon: url('/public/wiener-melange/icons/chevron-down.svg');
+  --_toggle-padding: 0;
+  --_toggle-padding-button: 0;
+  --_toggle-padding-content: 0;
+}

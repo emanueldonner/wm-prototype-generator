@@ -1,0 +1,6 @@
+:root {
+  --_modal-max-width: var(--wm-size-wrapper-width);
+  --_modal-button-background-color: var(--wm-color-nebelgrau-light);
+  --_modal-button-border-color: var(--wm-color-nebelgrau);
+  --_modal-button-background-image: url('/public/wiener-melange/icons/zoom.svg');
+}

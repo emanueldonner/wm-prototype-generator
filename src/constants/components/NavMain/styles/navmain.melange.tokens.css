@@ -1,0 +1,4 @@
+:root {
+  --_navmain-wrapperwidth: var(--wm-size-wrapper-width);
+  --_navmain-gap: var(--wm-spacing-xl);
+}

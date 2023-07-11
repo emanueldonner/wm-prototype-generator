@@ -1,0 +1,14 @@
+{
+	"navmain": {
+		"wrapperwidth": {
+			"name": "Breite des Wrappers im Menü",
+			"default": "70rem",
+			"$value": "var(--wm-size-wrapper-width)"
+		},
+		"gap": {
+			"name": "Abstand zwischen Menüpunkten auf der ersten Ebene",
+			"default": "1rem",
+			"$value": "var(--wm-spacing-xl)"
+		}
+	}
+}

@@ -1,0 +1,106 @@
+.wm-stack {
+	display: flex;
+	flex-direction: column;
+}
+@media (min-width: 48em) {
+.wm-stack {
+	flex-direction: row;
+}
+}
+.wm-stack--vertical-true {
+	flex-direction: column;
+}
+.wm-stack--horizontal-true {
+	flex-direction: row;
+}
+.wm-stack--grow-false.wm-stack--vertical-true {
+	align-items: start;
+}
+.wm-stack {
+	--_justify: start;
+	--_align: normal;
+	--_gap: 0;
+	justify-content: var(--_justify);
+	align-items: var(--_align);
+	gap: var(--_gap);
+}
+.wm-stack--wrap-true {
+	flex-wrap: wrap;
+}
+.wm-stack--wrap-false.wm-stack--vertical-true {
+	overflow: auto;
+}
+.wm-stack--grow-true > * {
+	flex-grow: 1;
+}
+.wm-stack--equal-true.wm-stack--grow-true > * {
+	flex-shrink: 0;
+	min-width: 0;
+}
+.wm-stack--equal-true.wm-stack--grow-true.wm-stack--wrap-true.wm-stack--vertical-false > *:not(wm-stack[vertical="false"]) {
+	flex-basis: 0px;
+}
+.wm-stack--gap-xs {
+	--_gap: var(--_stack-spacing-xs);
+}
+.wm-stack--gap-s {
+	--_gap: var(--_stack-spacing-s);
+}
+.wm-stack--gap-m {
+	--_gap: var(--_stack-spacing-m);
+}
+.wm-stack--gap-l {
+	--_gap: var(--_stack-spacing-l);
+}
+.wm-stack--gapx {
+	column-gap: var(--_gapx);
+}
+.wm-stack--gapx-xs {
+	--_gapx: var(--_stack-spacing-xs);
+}
+.wm-stack--gapx-s {
+	--_gapx: var(--_stack-spacing-s);
+}
+.wm-stack--gapx-m {
+	--_gapx: var(--_stack-spacing-m);
+}
+.wm-stack--gapx-l {
+	--_gapx: var(--_stack-spacing-l);
+}
+.wm-stack--gapy {
+	row-gap: var(--_gapy);
+}
+.wm-stack--gapy-xs {
+	--_gapy: var(--_stack-spacing-xs);
+}
+.wm-stack--gapy-s {
+	--_gapy: var(--_stack-spacing-s);
+}
+.wm-stack--gapy-m {
+	--_gapy: var(--_stack-spacing-m);
+}
+.wm-stack--gapy-l {
+	--_gapy: var(--_stack-spacing-l);
+}
+.wm-stack--justify-center {
+	--_justify: center;
+}
+.wm-stack--justify-space-between {
+	--_justify: space-between;
+}
+@media (min-width: 48em) {
+.wm-stack--alignment-center {
+	--_align: center;
+}
+}
+@media (min-width: 48em) {
+.wm-stack--alignment-end {
+	--_align: end;
+}
+}
+.wm-stack > img {
+	align-self: start;
+}
+.wm-stack > * {
+	margin: 0 !important;
+}

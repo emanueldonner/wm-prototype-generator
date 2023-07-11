@@ -1,0 +1,20 @@
+:root {
+  --_tabs-alignment: start;
+  --_tabs-border: none;
+  --_tabs-gap: 0;
+  --_tabs-padding: 0;
+  --_tabs-spacing: -1px;
+}:root {
+  --_tab-background-color: var(--wm-color-nebelgrau-light);
+  --_tab-background-color-selected: var(--wm-color-weiss);
+  --_tab-border-width: 1px;
+  --_tab-border-color: var(--wm-color-nebelgrau-light) var(--wm-color-nebelgrau-light) var(--wm-color-nebelgrau);
+  --_tab-border-color-selected: var(--wm-color-nebelgrau) var(--wm-color-nebelgrau) var(--wm-color-weiss);
+  --_tab-font-variation-settings: var(--wm-font-weight-bold);
+  --_tab-font-weight: normal;
+  --_tab-padding: 0.6rem 1rem;
+}:root {
+  --_tabpanel-padding: 0.6rem 1rem;
+  --_tabpanel-border-width: 1px;
+  --_tabpanel-border-color: var(--wm-color-nebelgrau);
+}

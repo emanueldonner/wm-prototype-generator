@@ -1,0 +1,267 @@
+wm-modal {
+  display: none;
+  inset: 0;
+  position: fixed;
+  z-index: 1230;
+}
+
+wm-modal[isopen] {
+  display: block;
+}
+
+dialog {
+  --dialog-controls-height: 4rem;
+  --_padding: 2rem;
+
+  aspect-ratio: 16 / 9;
+  background-color: transparent;
+  border: none;
+  height: calc(100% - var(--dialog-controls-height));
+  width: calc(100% - var(--_padding));
+  margin: auto !important;
+  max-height: calc(602px + var(--dialog-controls-height));
+  max-width: 1070px;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+dialog.html {
+  aspect-ratio: auto;
+  height: fit-content;
+  max-height: 80vh;
+  width: fit-content;
+}
+
+dialog::backdrop {
+  background-color: rgb(0 0 0 / 0.8);
+}
+
+dialog:focus-visible {
+  outline: none;
+}
+
+@media (min-width: 48em) {
+  dialog {
+    --_padding: 4rem;
+  }
+
+  dialog:focus-visible .content {
+    outline: 2px solid var(--site-color-secondary);
+  }
+}
+
+dialog[class^="image"] {
+  padding: 0;
+}
+
+wm-modal[size="max-content"] dialog {
+  width: 100%;
+  max-width: var(--_modal-max-width);
+}
+
+.content {
+  height: calc(100% - var(--dialog-controls-height));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+}
+
+.content-inner {
+  max-height: 100%;
+  position: relative;
+  max-width: 100%;
+  /* outline: 2px solid red; */
+}
+
+dialog.html .content {
+  background-color: #fff;
+  display: block;
+  height: 100%;
+  overflow: auto;
+  padding: 1rem;
+  pointer-events: all;
+}
+
+dialog.html .content-inner {
+  height: 100%;
+}
+
+.wm-zoom-active {
+  pointer-events: all;
+}
+
+.wm-image--zoom {
+  max-block-size: 100%;
+  max-width: 100%;
+  margin: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  pointer-events: all;
+
+  /* width: 100%; */
+  /* object-fit: cover; */
+}
+
+.wm-image--zoomed {
+  max-width: none;
+  max-height: none;
+  top: 0;
+  left: 0;
+  opacity: 1;
+  width: auto;
+}
+
+a[data-modal] {
+  display: inline-block;
+  position: relative;
+}
+
+[data-modal*="image"]:has(img)::after {
+  align-items: center;
+  background: var(--_modal-button-background-color) var(--_modal-button-background-image) no-repeat center right 0.3rem;
+  background-size: 24px 70%;
+  border: 1px solid var(--_modal-border-color);
+  block-size: 2.125rem;
+  color: var(--site-color);
+  content: "";
+  display: inline-flex;
+  inset-block-end: 2px;
+  inset-inline-end: 2px;
+  min-inline-size: 2.125rem;
+  padding-inline-start: 0.8rem;
+  position: absolute;
+}
+
+[data-modal*="images"]:has(img)::after {
+  content: "Weitere";
+  padding-inline-end: 2.125rem;
+}
+
+.controls {
+  align-items: center;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: end;
+  inline-size: 100%;
+  inset-block-end: 0;
+  inset-inline-start: 0;
+  transition: all 0.3s;
+  padding: var(--site-wrapper-padding);
+  position: fixed;
+}
+
+@media (min-width: 68.75em) {
+  .controls {
+    block-size: 4rem;
+    position: static;
+    padding: 0;
+  }
+}
+
+dialog .close {
+  align-items: center;
+  background-color: var(--wm-color-weiss);
+  display: flex;
+  flex-shrink: 0;
+  height: 2.75rem;
+  inset-block-start: var(--site-wrapper-padding);
+  inset-inline-end: var(--site-wrapper-padding);
+  justify-content: center;
+  position: fixed;
+  width: 2.75rem;
+}
+
+dialog .close wm-icon {
+  transition: transform 0.3s;
+}
+
+dialog .close:is(:hover, :focus-within) wm-icon {
+  transform: rotate(45deg);
+}
+
+@media (min-width: 68.75em) {
+  dialog .close {
+    position: static;
+  }
+}
+
+dialog .caption {
+  background-color: var(--wm-color-nebelgrau-light);
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  padding: var(--wm-spacing-xxs) var(--wm-spacing-xs);
+  max-inline-size: 100%;
+  pointer-events: all;
+}
+
+@media (min-width: 68.75em) {
+  dialog .caption {
+    position: absolute;
+    inline-size: 100%;
+  }
+}
+
+.wm-is-zoomed :is(.controls, .caption, .close, figcaption) {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.slide {
+  align-items: center;
+  background: var(--wm-color-weiss);
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  width: 100%;
+}
+
+.thumbs {
+  align-items: center;
+  display: flex;
+  flex-grow: 1;
+  gap: 0.5rem;
+  overflow: auto;
+  scrollbar-color: #fff transparent;
+  scrollbar-width: thin;
+}
+
+@media (min-width: 68.75em) {
+  .thumbs {
+    margin-inline-end: 1rem;
+  }
+}
+
+.thumbs:focus-visible {
+  outline: 2px solid var(--site-color-secondary);
+}
+
+.thumbs wm-button {
+  display: inline-flex;
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+.thumbs wm-button:is([aria-pressed="true"]) {
+  opacity: 1;
+  outline: 2px solid var(--site-color-secondary);
+  outline-offset: -2px;
+}
+
+@media (hover: hover) {
+  .thumbs wm-button:hover {
+    opacity: 1;
+    outline: 2px solid var(--site-color-secondary);
+    outline-offset: -2px;
+  }
+}
+
+.thumbs wm-button button {
+  --_button-focus-outline: 2px solid var(--site-color-secondary);
+}

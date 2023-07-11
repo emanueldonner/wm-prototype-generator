@@ -1,0 +1,6 @@
+:root {
+  --_badge-color-success: var(--wm-color-ui-success);
+  --_badge-color-error: var(--wm-color-ui-error);
+  --_badge-font-variation-settings: var(--wm-font-weight-extra-bold);
+  --_badge-font-weight: normal;
+}

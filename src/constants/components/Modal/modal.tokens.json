@@ -1,0 +1,26 @@
+{
+	"modal": {
+		"max-width": {
+			"name": "Maximalbreite",
+			"default": "64rem",
+			"$value": "var(--wm-size-wrapper-width)"
+		},
+		"button-background-color": {
+			"name": "Hintergrundfarbe des Buttons",
+			"default": "#fff",
+			"$value": "var(--wm-color-nebelgrau-light)"
+		},
+		"button-border-color": {
+			"name": "Rahmenfarbe des Buttons",
+			"default": "#000",
+			"$value": "var(--wm-color-nebelgrau)"
+		},
+		"button-background-image": {
+			"name": "Hintergrundbild des Buttons",
+			"default": "none",
+			"$value": "url('/public/wiener-melange/icons/zoom.svg')"
+		}
+	}
+}
+
+

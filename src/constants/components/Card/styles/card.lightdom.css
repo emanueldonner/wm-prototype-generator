@@ -1,0 +1,26 @@
+wm-card[blocklink="true"] a::before {
+  content: "";
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+}
+
+/* TODO needs testing - for long words that dont break and otherwise create overflow of card */
+wm-card [slot="heading"] {
+  overflow-wrap: anywhere;
+}
+
+wm-card [slot="heading"] a:is(:link, :visited) {
+  color: var(--site-color);
+  text-decoration: none;
+}
+
+wm-card picture img {
+  display: block;
+  height: 100% !important;
+  object-fit: cover;
+  width: 100%;
+}

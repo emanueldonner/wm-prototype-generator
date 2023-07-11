@@ -1,0 +1,24 @@
+{
+  "badge": {
+    "color-success": {
+      "name": "Farbe für Erfolg-Badge",
+      "default": "green",
+      "$value": "var(--wm-color-ui-success)"
+    },
+    "color-error": {
+      "name": "Farbe für Error-Badge",
+      "default": "red",
+      "$value": "var(--wm-color-ui-error)"
+    },
+    "font-variation-settings": {
+      "name": "Schriftstärke für WM Variablefont",
+      "default": "normal",
+      "$value": "var(--wm-font-weight-extra-bold)"
+    },
+    "font-weight": {
+      "name": "Standard-Schriftstärke",
+      "default": "bold",
+      "$value": "normal"
+    }
+  }
+}

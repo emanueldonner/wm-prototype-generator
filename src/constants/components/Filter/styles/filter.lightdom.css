@@ -1,0 +1,65 @@
+/*
+TODO: Move vars into tokens.json
+*/
+
+wm-filter {
+  display: block;
+}
+
+wm-filter[open] {
+  position: relative;
+  z-index: 1210;
+}
+  
+wm-filter .list {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--wm-spacing-xs);
+}
+
+wm-filter .check-all {
+  grid-column: 1;
+  margin: 0.3rem 0 0 0rem;
+}
+
+wm-filter wm-toggle {
+  grid-column: 2;
+}
+
+wm-filter .filter-dropdown-button {
+  all: unset !important;
+  background: var(--select-background) var(--select-icon) no-repeat right 0.625rem center !important;
+  border: 1px solid var(--select-border-color) !important;
+  box-sizing: border-box !important;
+  color: var(--select-color) !important;
+  min-height: var(--select-min-height) !important;
+  padding: var(--select-padding) !important;
+  width: 100% !important;
+}
+
+wm-filter .filter-dropdown-button[aria-expanded="true"] + div {
+  display: block !important;
+}
+
+wm-filter .filter-dropdown-button[aria-expanded="true"] {
+  border-block-end-color: transparent !important;
+}
+
+wm-filter .filter-dropdown-content {
+  background: var(--wm-color-weiss);
+  border: solid var(--wm-color-nebelgrau);
+  border-width: 0 1px 1px;
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-start: 100%;
+  inline-size: 100%;
+  padding: 0.5rem;
+}
+
+wm-filter .filter-dropdown-wrapper {
+  position: relative;
+}
+
+wm-filter[open] :is(.filter-dropdown-wrapper, .filter-dropdown-content)  {
+  box-shadow: 0 4px 8px 0 var(--wm-color-fastschwarz-light);
+}
