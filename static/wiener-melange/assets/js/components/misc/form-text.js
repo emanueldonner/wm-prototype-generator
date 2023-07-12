@@ -1,0 +1,4 @@
+/* @copyright Stadt Wien - Wiener Melange v2 */
+import{y as t}from"../../lit-element-a22611a3.js";import{f as e,h as s}from"../../helpers.styles-24557fa6.js";import{f as r}from"../../form.styles-8cbc7814.js";import{FormItem as o}from"./form-item.js";import"../../when-c8427aa9.js";import"../../class-map-50dbd9fb.js";import"../../directive-19e462f3.js";import"./utils.js";import"./slot.js";const i=i=>{class m extends(o(i)){static properties={maxlength:{type:Number},placeholder:{type:String}};static styles=[r,e,s];constructor(){super(),this.maxlength=void 0,this.placeholder=void 0}_handleInput(t){this.dispatchEvent(new CustomEvent("wm-input",{detail:t.target.value,bubbles:!0,composed:!0}))}_renderElement(e){return this._renderItem(t`        
+        ${e}
+      `)}}return m};export{i as FormText};

@@ -9,6 +9,10 @@ import{i as e,s as t,y as i}from"../../lit-element-a22611a3.js";import{n as s}fr
   }
 
   :host {
+    /* see header section in /styles/base/page.css for details */
+    --_dialog-offset: var(--dialog-offset, var(--header-height-dynamic));
+    --_backdrop-offset: var(--dialog-offset, var(--header-height-dynamic));
+
     display: block;
     /* Nav should fill the header */
     height: 100%;
@@ -23,10 +27,11 @@ import{i as e,s as t,y as i}from"../../lit-element-a22611a3.js";import{n as s}fr
     background-color: transparent;
     border: 0;
     /* height minus the height of the header */
-    height: calc(100dvh - var(--header-height-dynamic));
-    inset-block-start: var(--header-height-dynamic);
+    height: calc(100dvh - var(--_dialog-offset));
+    inset-block-start: var(--_dialog-offset);
+    margin-block: 0;
     margin-inline: auto 0;
-    max-height: calc(100dvh - var(--header-height-dynamic));
+    max-height: calc(100dvh - var(--_dialog-offset));
     max-width: 100vw;
     overflow: hidden;
     padding: 0;
@@ -35,8 +40,9 @@ import{i as e,s as t,y as i}from"../../lit-element-a22611a3.js";import{n as s}fr
   }
 
   ::backdrop {
-    /* Backdrop doesn't inherit anything, that's why we have to apply this ugly hack */
-    --_inset-block-start: 3.75rem;
+    /* Backdrop doesn't inherit anything, that's why we have to apply this ugly hack
+    3.5 equals the header height */
+    --_inset-block-start: 3.5rem;
     background: rgb(0 0 0 / 0.5);
     inset-block-start: var(--_inset-block-start);
   }
@@ -123,6 +129,10 @@ import{i as e,s as t,y as i}from"../../lit-element-a22611a3.js";import{n as s}fr
     height: inherit;
   }
 
+  ul ul {
+    text-indent: 1rem;
+  }
+
   /* Toggle buttons */
   .lists button {
     all: initial;
@@ -171,6 +181,7 @@ import{i as e,s as t,y as i}from"../../lit-element-a22611a3.js";import{n as s}fr
   :host([listsVisible]) ul ul,
   li li {
     height: auto;
+    text-indent: 0;
   }
 
 
@@ -198,18 +209,22 @@ import{i as e,s as t,y as i}from"../../lit-element-a22611a3.js";import{n as s}fr
   :host([listsVisible]) .lists li ul {
     padding-block: 0.5rem;
     max-height: calc(100vh - 100%);
+    border-image: conic-gradient( var(--header-nav-active-link-background) 0 0) fill 1//0 100vw;
   }
 
+  /* Braucht es den Hack? */
+  /*
   :host([listsVisible]) .lists li ul::before {
     content: "";
     width: 200vw;
     height: 100%;
     background: var(--header-nav-active-link-background);
     display: block;
-    position: absolute;
-    left: -100vw;
+    position: fixed;
+    left: 0;
     top: 0;
   } 
+  */
 
   :host(:not([listsVisible])) .lists {
     overflow: auto;
@@ -255,7 +270,7 @@ import{i as e,s as t,y as i}from"../../lit-element-a22611a3.js";import{n as s}fr
   :host(:not([listsVisible])) .lists :is(a, button):focus-visible {
     outline-offset: -3px;
   }
-`];class o extends t{get _dialog(){return this.renderRoot?.querySelector("dialog")??null}get _content(){return this.renderRoot?.querySelector(".wrapper")??null}get _lists(){return this.renderRoot?.querySelector(".lists")??null}static properties={labelOpen:{type:String},showLabelOpen:{type:String},labelClose:{type:String},type:{type:String,reflect:!0},listsVisible:{type:Boolean,reflect:!0},isopen:{type:Boolean,reflect:!0},_items:{type:Array,attribute:!1},_openItem:{type:Number,attribute:!1},_lastFocusedElement:{type:Node,attribute:!1}};static styles=[n,a];constructor(){super(),this.labelOpen="Menü",this.labelClose="Schließen",this.showLabelOpen="true",this._items=[],this.isopen=!1,this.type="visible",this.listsVisible=!1,this._openItem=void 0,this._lastFocusedElement=void 0,this._nativeCloseEvent=this._nativeClose.bind(this),this._closeOnTransitionEndEvent=this._closeOnTransitionEnd.bind(this),this.addEventListener("mouseleave",(e=>{this.listsVisible&&this._closeSub(this._openItem)}))}connectedCallback(){super.connectedCallback(),this._getLayout(),this._addGlovalEvents()}updated(e){e.has("isopen")&&(this.isopen?this.open():this.close())}_addGlovalEvents(){this.addEventListener("keydown",(e=>{"Escape"===e.code&&(e.preventDefault(),this._openItem&&this._closeSub(this._openItem),this.isopen=!1,this._moveFocus())}))}_moveFocus(){this._lastFocusedElement&&(this._lastFocusedElement.focus(),this._lastFocusedElement=void 0)}_handleClickOutside(e){e.target.classList.contains("wrapper")&&(this.isopen=!1)}_addEvents(){setTimeout((()=>{this._dialog&&(this._dialog.addEventListener("close",this._nativeCloseEvent),this._content.addEventListener("transitionend",this._closeOnTransitionEndEvent))}),0)}_closeOnTransitionEnd(e){e.target.classList.contains("wrapper--hidden")&&(this._dialog.close(),this._content.classList.remove("wrapper--hidden"))}_nativeClose(e){e.target.classList.contains("wrapper--hidden")||this._content.classList.remove("transition")}_getLayout(){"visible"===this.type&&(this.listsVisible=!0);const e=window.matchMedia("(min-width: 64em)"),t=e=>{"hiddenmobile"===this.type&&(this.listsVisible=e.matches),this.listsVisible||(this._addEvents(),"hiddenmobile"===this.type&&(this.isopen=!1))};e.addEventListener("change",t),t(e)}open(){this._content&&(this._content.classList.remove("wrapper--hidden"),this._dialog.showModal(),this._content.classList.add("wrapper--hidden"),setTimeout((()=>{this._content.classList.add("transition"),this._content.classList.remove("wrapper--hidden")}),0))}close(){this._content&&this._content.classList.add("wrapper--hidden")}_getContents(){this._items=[];const e=this.shadowRoot.querySelector("slot").assignedElements(),t=(e,i)=>{const s=i.querySelectorAll(":scope > li");for(let i=0;i<s.length;i++){const n=s[i],a=n.querySelector("a"),o={text:a.textContent,href:a.getAttribute("href"),children:[],collapsed:!0},l=n.querySelector("ul");if(l){const e=[];t(e,l),o.children=e}e.push(o)}};for(let i=0;i<e.length;i++){const s=e[i];t(this._items,s)}}_rerender(){this._getContents()}_openCloseSub(e,t){this._lastFocusedElement=t.target,this._openItem&&this._openItem!==e&&this._closeSub(this._openItem),this._items[e]&&(this._openItem=e,this._items[e].collapsed=!this._items[e].collapsed,this.requestUpdate(),"visible"===this.type&&(this.isopen=!this._items[e].collapsed))}_openSub(e,t){this._openItem&&this._closeSub(this._openItem),this._openItem=e,this._items[e].collapsed=!1,this.requestUpdate()}_closeSub(e,t){this._openItem&&(this._items[e].collapsed=!0,this.requestUpdate(),this._openItem=void 0)}_openCloseNav(){this.isopen=!this.isopen}_burgerTemplate(){return i`
+`];class o extends t{get _dialog(){return this.renderRoot?.querySelector("dialog")??null}get _content(){return this.renderRoot?.querySelector(".wrapper")??null}get _lists(){return this.renderRoot?.querySelector(".lists")??null}static properties={labelOpen:{type:String},showLabelOpen:{type:String},labelClose:{type:String},type:{type:String,reflect:!0},listsVisible:{type:Boolean,reflect:!0},isopen:{type:Boolean,reflect:!0},_items:{type:Array,attribute:!1},_openItem:{type:Number,attribute:!1},_lastFocusedElement:{type:Node,attribute:!1}};static styles=[n,a];constructor(){super(),this.labelOpen="Menü",this.labelClose="Schließen",this.showLabelOpen="true",this._items=[],this.isopen=!1,this.type="visible",this.listsVisible=!1,this._openItem=void 0,this._lastFocusedElement=void 0,this._nativeCloseEvent=this._nativeClose.bind(this),this._closeOnTransitionEndEvent=this._closeOnTransitionEnd.bind(this),this.addEventListener("mouseleave",(()=>{this.listsVisible&&this._closeSub(this._openItem)}))}connectedCallback(){super.connectedCallback(),this._getLayout(),this._addGlovalEvents()}updated(e){e.has("isopen")&&(this.isopen?this.open():this.close())}_addGlovalEvents(){this.addEventListener("keydown",(e=>{"Escape"===e.code&&(e.preventDefault(),void 0!==this._openItem&&this._closeSub(this._openItem),this.isopen=!1,this._moveFocus())}))}_moveFocus(){this._lastFocusedElement&&(this._lastFocusedElement.focus(),this._lastFocusedElement=void 0)}_handleClickOutside(e){e.target.classList.contains("wrapper")&&(this.isopen=!1)}_addEvents(){setTimeout((()=>{this._dialog&&(this._dialog.addEventListener("close",this._nativeCloseEvent),this._content.addEventListener("transitionend",this._closeOnTransitionEndEvent))}),0)}_closeOnTransitionEnd(e){e.target.classList.contains("wrapper--hidden")&&(this._dialog.close(),this._content.classList.remove("wrapper--hidden"))}_nativeClose(e){e.target.classList.contains("wrapper--hidden")||this._content.classList.remove("transition")}_getLayout(){"visible"===this.type&&(this.listsVisible=!0);const e=window.matchMedia("(min-width: 64em)"),t=e=>{"hiddenmobile"===this.type&&(this.listsVisible=e.matches),this.listsVisible||(this._addEvents(),"hiddenmobile"===this.type&&(this.isopen=!1))};e.addEventListener("change",t),t(e)}open(){this._content&&(this._content.classList.remove("wrapper--hidden"),this._dialog.showModal(),this._content.classList.add("wrapper--hidden"),setTimeout((()=>{this._content.classList.add("transition"),this._content.classList.remove("wrapper--hidden")}),0))}close(){this._content&&this._content.classList.add("wrapper--hidden")}_getContents(){this._items=[];const e=this.shadowRoot.querySelector("slot").assignedElements(),t=(e,i)=>{const s=i.querySelectorAll(":scope > li");for(let i=0;i<s.length;i++){const n=s[i],a=n.querySelector("a"),o={text:a.textContent,href:a.getAttribute("href"),children:[],collapsed:!0},l=n.querySelector("ul");if(l){const e=[];t(e,l),o.children=e}e.push(o)}};for(let i=0;i<e.length;i++){const s=e[i];t(this._items,s)}}rerender(){this._getContents()}_openCloseSub(e,t){this._lastFocusedElement=t.target,void 0!==this._openItem&&this._openItem!==e&&this._closeSub(this._openItem),this._items[e]&&(this._openItem=e,this._items[e].collapsed=!this._items[e].collapsed,this.requestUpdate(),"visible"===this.type&&(this.isopen=!this._items[e].collapsed))}_openSub(e){void 0!==this._openItem&&this._closeSub(this._openItem),this._openItem=e,this._items[e].collapsed=!1,this.requestUpdate()}_closeSub(e){void 0!==this._openItem&&(this._items[e].collapsed=!0,this.requestUpdate(),this._openItem=void 0)}_openCloseNav(){this.isopen=!this.isopen}_burgerTemplate(){return i`
       <wm-button kind="clean" @click="${this._openCloseNav}" class="burger">
         <button>
           ${"false"===this.showLabelOpen?i`<span class="wm-h-vh">${this.labelOpen}</span>`:`${this.labelOpen}`}
@@ -280,7 +295,7 @@ import{i as e,s as t,y as i}from"../../lit-element-a22611a3.js";import{n as s}fr
                 </button>
             
                 <ul hidden>
-                  ${e.children.map(((e,t)=>i`
+                  ${e.children.map((e=>i`
                       <li>
                         <a href="${e.href}" @keydown="${this._handleKeyDown}">
                           <span>
@@ -293,7 +308,7 @@ import{i as e,s as t,y as i}from"../../lit-element-a22611a3.js";import{n as s}fr
             </li>
           `))}
         </ul>
-        <slot hidden @slotchange="${this._rerender}"></slot>
+        <slot hidden @slotchange="${this.rerender}"></slot>
       </div>
     `}render(){return i`
       <nav>

@@ -58,7 +58,7 @@
 
 <!-- Display and edit the properties of the selected component -->
 {#if $selectedComponent}
-	<div class="sidebar">
+	<div class="p-4 overflow-scroll h-full">
 		<button
 			on:click={() => {
 				showConfigSidebar.set(false);
@@ -69,9 +69,3 @@
 		<ConfigItem {updateStore} component={$selectedComponent} />
 	</div>
 {/if}
-
-<style>
-	.sidebar {
-		padding: 1rem;
-	}
-</style>

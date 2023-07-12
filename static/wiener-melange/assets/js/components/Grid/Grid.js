@@ -30,9 +30,9 @@ import{i as s,s as r,y as e}from"../../lit-element-a22611a3.js";const i=[s`
   --cols: repeat(var(--grid-template-columns-full), 1fr);
 }
 
-@container (min-width: 48em) {
+@media (min-width: 48em) {
   :host([size="m"]) {
-    --cols: repeat(auto-fill,minmax(19rem, 1fr));  
+    --cols: repeat(auto-fill,minmax(19rem, 1fr));
   }
 
   :host([size="l"]) {
@@ -40,7 +40,7 @@ import{i as s,s as r,y as e}from"../../lit-element-a22611a3.js";const i=[s`
   }
 }
 
-@container (min-width: 64em) {
+@media (min-width: 64em) {
   :host([size="s"]) {
     --cols: repeat(var(--grid-template-columns-s), 1fr);
   }

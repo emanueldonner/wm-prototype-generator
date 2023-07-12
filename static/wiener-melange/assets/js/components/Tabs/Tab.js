@@ -1,5 +1,5 @@
 /* @copyright Stadt Wien - Wiener Melange v2 */
-import{s as t,i as e,y as o}from"../../lit-element-a22611a3.js";import{t as r}from"../../tabs.tokens-1bf80ef0.js";class s extends t{static properties={selected:{type:Boolean,reflect:!0}};static styles=[r,e`
+import{s as t,i as e,y as o}from"../../lit-element-a22611a3.js";import{t as r}from"../../tabs.tokens-8802b34d.js";class s extends t{static properties={selected:{type:Boolean,reflect:!0}};static styles=[r,e`
       * {
         box-sizing: border-box;
       }
@@ -18,6 +18,7 @@ import{s as t,i as e,y as o}from"../../lit-element-a22611a3.js";import{t as r}fr
         font-variation-settings: var(--tab-font-variation-settings);
         font-weight: var(--tab-font-weight);
         padding: var(--tab-padding);
+        min-width: fit-content;
       }
 
       :host([selected]) {

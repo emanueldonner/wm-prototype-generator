@@ -11,7 +11,7 @@ import{i as t,s as a,y as s}from"../../lit-element-a22611a3.js";const e=[t`
   }
 }
 
-:host([vertical="true"]) {
+:host([vertical]) {
   flex-direction: column;
 }
 
@@ -19,7 +19,7 @@ import{i as t,s as a,y as s}from"../../lit-element-a22611a3.js";const e=[t`
   flex-direction: row;
 }
 
-:host([grow="false"][vertical="true"]) {
+:host([grow="false"][vertical]) {
   align-items: start;
 }
 
@@ -43,7 +43,7 @@ import{i as t,s as a,y as s}from"../../lit-element-a22611a3.js";const e=[t`
   flex-wrap: wrap;
 }
 
-:host([wrap="false"]:not([vertical="true"])) {
+:host([wrap="false"]:not([vertical])) {
   overflow: auto;
 }
 
@@ -56,7 +56,7 @@ import{i as t,s as a,y as s}from"../../lit-element-a22611a3.js";const e=[t`
   min-width: 0;
 }
 
-:host([equal="true"][grow="true"]:not([wrap="true"])) ::slotted(*) {
+:host([equal="true"][grow="true"]:not([wrap="true"])) ::slotted(*:not(wm-stack[vertical="false"])) {
   flex-basis: 0px;
 }
 
@@ -76,36 +76,44 @@ import{i as t,s as a,y as s}from"../../lit-element-a22611a3.js";const e=[t`
   --_gap: var(--stack-spacing-l);
 }
 
+:host([gapx]) {
+  column-gap: var(--_gapx)
+}
+
 :host([gapx="xs"]) {
-  --_gap: 0 var(--stack-spacing-xs);
+  --_gapx: var(--stack-spacing-xs);
 }
 
 :host([gapx="s"]) {
-  --_gap: 0 var(--stack-spacing-s);
+  --_gapx: var(--stack-spacing-s);
 }
 
 :host([gapx="m"]) {
-  --_gap: 0 var(--stack-spacing-m);
+  --_gapx: var(--stack-spacing-m);
 }
 
 :host([gapx="l"]) {
-  --_gap: 0 var(--stack-spacing-l);
+  --_gapx: var(--stack-spacing-l);
+}
+
+:host([gapy]) {
+  row-gap: var(--_gapy)
 }
 
 :host([gapy="xs"]) {
-  --_gap: var(--stack-spacing-xs) 0;
+  --_gapy: var(--stack-spacing-xs);
 }
 
 :host([gapy="s"]) {
-  --_gap: var(--stack-spacing-s) 0;
+  --_gapy: var(--stack-spacing-s);
 }
 
 :host([gapy="m"]) {
-  --_gap: var(--stack-spacing-m) 0;
+  --_gapy: var(--stack-spacing-m);
 }
 
 :host([gapy="l"]) {
-  --_gap: var(--stack-spacing-l) 0;
+  --_gapy: var(--stack-spacing-l);
 }
 
 :host([justify="center"]) {
@@ -139,6 +147,6 @@ import{i as t,s as a,y as s}from"../../lit-element-a22611a3.js";const e=[t`
   --stack-spacing-s: var(--_stack-spacing-s, 0.9375rem);
   --stack-spacing-m: var(--_stack-spacing-m, 1.25rem);
   --stack-spacing-l: var(--_stack-spacing-l, 01.875rem);
-}`];class i extends a{static properties={gap:{type:String,reflect:!0},gapx:{type:String,reflect:!0},gapy:{type:String,reflect:!0},grow:{type:String,reflect:!0},equal:{type:String,reflect:!0},wrap:{type:String,reflect:!0},vertical:{type:String,reflect:!0},horizontal:{type:String,reflect:!0},alignment:{type:String,reflect:!0},justify:{type:String,reflect:!0}};static styles=[r,e];constructor(){super(),this.gap="default",this.gapx=void 0,this.gapy=void 0,this.grow=!0,this.equal=!0,this.wrap=!1,this.vertical=!1,this.horizontal=void 0,this.justify=void 0,this.alignment=void 0}render(){return s`
+}`];class i extends a{static properties={gap:{type:String,reflect:!0},gapx:{type:String,reflect:!0},gapy:{type:String,reflect:!0},grow:{type:String,reflect:!0},equal:{type:String,reflect:!0},wrap:{type:String,reflect:!0},vertical:{type:Boolean,reflect:!0},horizontal:{type:String,reflect:!0},alignment:{type:String,reflect:!0},justify:{type:String,reflect:!0}};static styles=[r,e];constructor(){super(),this.gap="s",this.gapx=void 0,this.gapy=void 0,this.grow=!0,this.equal=!0,this.wrap=void 0,this.vertical=!1,this.horizontal=void 0,this.justify=void 0,this.alignment=void 0}render(){return s`
       <slot></slot>
-    `}}customElements.define("wm-stack",i);const n="wm-stack";export{i as Stack,n as tagName};
+    `}}customElements.define("wm-stack",i);const o="wm-stack";export{i as Stack,o as tagName};

@@ -56,18 +56,22 @@
 		{#each $canvasElements as element, index (element.id)}
 			<div
 				animate:flip={{ duration: flipDurationMs }}
-				class="flex flex-col items-center justify-center w-full h-full p-4 border-2 border-dashed border-transparent hover:border-gray-100 rounded-lg"
+				class="group flex flex-col items-center justify-center w-full h-full bg-white border-2 border-dashed border-transparent hover:border-gray-100 rounded-lg"
 			>
-				<DynamicComponent componentData={element} selected={$selectedComponent} />
-				<button
-					class="btn-icon variant-filled-success self-center transition duration-300 ease-in-out transform opacity-50 hover:scale-110 hover:opacity-100"
-					on:click={() => {
-						showConfigSidebar.set(true);
-						selectedComponent.set(element);
-					}}
+				<div
+					class="w-full h-6 bg-slate-400 flex justify-end transition-opacity duration-300 ease-in-out rounded-t-lg opacity-0 group-hover:opacity-100"
 				>
-					<IconEdit />
-				</button>
+					<button
+						class="bg-transparent transition duration-300 ease-in-out transform rounded-tr-lg opacity-50 hover:scale-110 hover:opacity-100"
+						on:click={() => {
+							showConfigSidebar.set(true);
+							selectedComponent.set(element);
+						}}
+					>
+						<IconEdit />
+					</button>
+				</div>
+				<DynamicComponent componentData={element} selected={$selectedComponent} />
 				<ElementList {addElementAt} index={index + 1} {templates} />
 			</div>
 		{/each}

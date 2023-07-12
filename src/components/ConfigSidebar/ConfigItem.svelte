@@ -61,6 +61,7 @@
 			{:else}
 				<div>
 					<input
+						class="p-2 border-2 border-gray-300 rounded-md"
 						type="text"
 						bind:value={component.props[key]}
 						on:input={(e) => {
@@ -74,9 +75,10 @@
 {/if}
 
 {#if component.content}
-	<div>
+	<div class="py-2">
 		Content
 		<textarea
+			class="p-2 border-2 border-gray-300 rounded-md"
 			bind:value={component.content}
 			on:input={(e) => {
 				updateChild('content', e.target.value);
@@ -93,23 +95,25 @@
 
 {#if editableVariables}
 	{#each Object.entries(editableVariables) as [key, value]}
-		<label for={key}>
-			{value.name}
-		</label>
-		{#if value.type === 'color'}
-			<input
-				id={key}
-				type="color"
-				bind:value={value.$value}
-				on:input={(e) => updateValue(key, e.target.value)}
-			/>
-		{:else if value.type === 'text'}
-			<input
-				id={key}
-				type="text"
-				bind:value={value.$value}
-				on:input={(e) => updateValue(key, e.target.value)}
-			/>
-		{/if}
+		<div class="py-2">
+			<label for={key}>
+				{value.name}
+			</label>
+			{#if value.type === 'color'}
+				<input
+					id={key}
+					type="color"
+					bind:value={value.$value}
+					on:input={(e) => updateValue(key, e.target.value)}
+				/>
+			{:else if value.type === 'text'}
+				<input
+					id={key}
+					type="text"
+					bind:value={value.$value}
+					on:input={(e) => updateValue(key, e.target.value)}
+				/>
+			{/if}
+		</div>
 	{/each}
 {/if}

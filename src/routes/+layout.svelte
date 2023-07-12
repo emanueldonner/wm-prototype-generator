@@ -20,12 +20,12 @@
 	import '../app.postcss';
 </script>
 
-{#each componentList as component}
+<!-- {#each componentList as component}
 	<script
 		type="module"
 		src={`./wiener-melange/assets/js/components/${component.title}/${component.title}.js`}
 	></script>
-{/each}
+{/each} -->
 <AppShell>
 	<svelte:fragment slot="header">
 		<AppBar class="bg-surface-100-800-token">
@@ -35,11 +35,11 @@
 		</AppBar>
 		<!-- <LightSwitch /> -->
 	</svelte:fragment>
-	<svelte:fragment slot="sidebarLeft">
+	<!-- <svelte:fragment slot="sidebarLeft">
 		<div id="sidebar-left" class="hidden md:block md:w-96 lg:h-full bg-slate-200">
 			<Sidebar />
 		</div>
-	</svelte:fragment>
+	</svelte:fragment> -->
 	<svelte:fragment slot="sidebarRight">
 		{#if $showConfigSidebar}
 			<div class="hidden md:block md:w-96 lg:h-full bg-slate-200">
@@ -57,4 +57,9 @@
 		<PageFooter />
 	</svelte:fragment>
 	<!-- (footer) -->
+	<!-- (footer) -->
+	<!-- (footer) -->
+	<!-- (footer) -->
+	<!-- (footer) -->
+	<script src="./wiener-melange/assets/js/bundle.js"></script>
 </AppShell>

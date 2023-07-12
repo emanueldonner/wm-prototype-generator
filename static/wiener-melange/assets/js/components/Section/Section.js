@@ -1,5 +1,5 @@
 /* @copyright Stadt Wien - Wiener Melange v2 */
-import{i as t,s as e,y as i}from"../../lit-element-a22611a3.js";import{randomHash as n}from"../misc/utils.js";import{n as o}from"../../when-c8427aa9.js";const a=[t`
+import{i as t,s as e,y as n}from"../../lit-element-a22611a3.js";import{randomHash as i}from"../misc/utils.js";import{n as o}from"../../when-c8427aa9.js";const a=[t`
 :host {
   --section-background: var(--_section-background, transparent);
   --section-border-color: var(--_section-border-color, var(--site-color-secondary));
@@ -36,15 +36,15 @@ import{i as t,s as e,y as i}from"../../lit-element-a22611a3.js";import{randomHas
    * Sections with background color
    */
  :host([highlight]) {
-   --background: var(--section-background-highlight);
-   --padding: var(--section-padding-highlight);
-   --accent-color: initial;
+    --background: var(--section-background-highlight);
+    --padding: var(--section-padding-highlight);
+    --accent-color: initial;
 
-   border-image: conic-gradient( var(--background) 0 0) fill 1//0 50vw;
-   border-width: var(--section-border-width);
-   border-color: var(--section-border-color);
-   border-style: solid;
-   accent-color: var(--accent-color);
+    border-image: conic-gradient( var(--background) 0 0) fill 1//0 50vw;
+    border-width: var(--section-border-width);
+    border-color: var(--section-border-color);
+    border-style: solid;
+    accent-color: var(--accent-color);
   }
 
   @media(min-width: 64em) {
@@ -61,24 +61,35 @@ import{i as t,s as e,y as i}from"../../lit-element-a22611a3.js";import{randomHas
   :host([highlight="abendstimmung"]) {
     --background: var(--wm-color-abendstimmung-light);
     --accent-color: var(--wm-color-abendstimmung);
+    --input-checkbox-icon:  url('/wiener-melange/assets/icons/check-light.svg');
   }
-  
+
   :host([highlight="goldgelb"]) {
     --background: var(--wm-color-goldgelb-light);
     --accent-color: var(--wm-color-goldgelb);
   }
-  
+
   :host([highlight="flieder"]) {
     --background: var(--wm-color-flieder-light);
     --accent-color: var(--wm-color-flieder);
+  }
+
+  :host([highlight="wasserblau"]) {
+    --background: var(--wm-color-wasserblau-light);
+    --accent-color: var(--wm-color-wasserblau);
+  }
+
+  :host([highlight="frischgruen"]) {
+    --background: var(--wm-color-frischgruen-light);
+    --accent-color: var(--wm-color-frischgruen);
   }
 
   :host([contentsize="text"]) .section-content {
     max-inline-size: var(--content-text-max-width);
   }
 
-  /* 
-   * Full-width sections 
+  /*
+   * Full-width sections
    */
   :host([type="full"]) {
     display: grid;
@@ -94,7 +105,7 @@ import{i as t,s as e,y as i}from"../../lit-element-a22611a3.js";import{randomHas
   ::slotted(:last-child) {
     grid-column: 1 / -1;
   }
-  
+
   :host([nav]) {
     align-items: start;
     position: relative;
@@ -105,20 +116,23 @@ import{i as t,s as e,y as i}from"../../lit-element-a22611a3.js";import{randomHas
   nav {
     --_nav-pos: fixed;
     --_nav-width: 100vw;
-    --_nav-inset: calc(var(--header-height) + var(--header-nav-height)) 0 0;
-    --_nav-height: calc(100vh - calc(var(--header-height) + var(--header-nav-height)));
+    
+    --_nav-inset: var(--header-height-total) 0 0;
+    --_nav-height: calc(100vh - var(--header-height-total));
     --_nav-background: var(--section-nav-background);
     --_nav-link: var(--section-nav-link-highlight);
-    box-shadow: var(--section-nav-shadow);
-    max-width: var(--_nav-width);
-    width: 100%;
-    position: var(--_nav-pos);
-    transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
-    z-index: 1220;
+    --_nav-transform: 0;
 
     background: var(--_nav-background);
+    box-shadow: var(--section-nav-shadow);
     height: var(--_nav-height);
     inset: var(--_nav-inset);
+    max-width: var(--_nav-width);
+    position: var(--_nav-pos);
+    transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+    transform: translateY(var(--_nav-transform));
+    width: 100%;
+    z-index: 1220;
   }
 
   :host([nav="toggle"]) .nav-hidden {
@@ -132,7 +146,6 @@ import{i as t,s as e,y as i}from"../../lit-element-a22611a3.js";import{randomHas
   }
 
   :host([nav="scroll"]) nav {
-    --_nav-inset: calc(var(--header-height) + var(--header-nav-height)) 0 0;
     --_nav-height: var(--header-nav-sec-height);
   }
 
@@ -156,7 +169,7 @@ import{i as t,s as e,y as i}from"../../lit-element-a22611a3.js";import{randomHas
       --_nav-inset: calc(var(--header-height) + var(--header-nav-height) + 2rem) 0 auto auto;
       --_nav-background: var(--section-nav-background-large);
       --_nav-link: var(--section-nav-link-highlight-large);
-
+      transform: none;
     }
 
     :host([nav="toggle"]) .nav-hidden {
@@ -192,13 +205,13 @@ import{i as t,s as e,y as i}from"../../lit-element-a22611a3.js";import{randomHas
   .section-content {
     grid-column: 1 / -1;
   }
-`];class s extends e{static properties={highlight:{type:String,reflect:!0},type:{type:String,reflect:!0},nav:{type:String,reflect:!0},contentsize:{type:String,reflect:!0},_links:{type:Array,attribute:!1}};static styles=[a,r];get _headings(){return this.querySelectorAll(':is(h2[id], h3[id], [data-heading]):not([data-heading="false"])')??null}get _nav(){return this.shadowRoot.querySelector("nav")??null}get _toggleButton(){return document.querySelector(".wm-section-toggle button")??null}constructor(){super(),this.highlight=void 0,this.type=void 0,this.nav=void 0,this.contentSize="full",this._links=[],this._options={offset:0}}updated(t){t.has("nav")&&this._addControls()}connectedCallback(){super.connectedCallback(),this._getItems(),this._addGlobalEvents()}_getOffsetFromTopEdge(){this._options.offset=16*(parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--header-height"))+parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--header-nav-height"))+parseFloat(getComputedStyle(this).getPropertyValue("--header-nav-sec-height"))+2)}_addControls(){if("toggle"===this.nav){const t=document.querySelector("wm-header"),e=this.shadowRoot.querySelector("#toggle-button").content.cloneNode(!0).children[0],i=e.querySelector("button");e.addEventListener("click",(t=>{this._nav.classList.toggle("nav-hidden"),document.documentElement.classList.toggle("wm-is-locked");const e="true"===i.getAttribute("aria-expanded");i.setAttribute("aria-expanded",!e),e||setTimeout((()=>{this.shadowRoot.querySelectorAll("a")[0].focus()}),100)})),console.log("here"),t.addAction(e)}}_addGlobalEvents(){let t;this._getOffsetFromTopEdge(),window.addEventListener("scroll",(e=>{if(this._getSectionInView()){this.shadowRoot.querySelectorAll("[aria-current]").forEach((t=>t.removeAttribute("aria-current")));this.shadowRoot.querySelector(`[href="#${this._getSectionInView().getAttribute("id")}"]`).setAttribute("aria-current",!0),window.clearTimeout(t),t=setTimeout((()=>{"scroll"===this.nav&&this._nav.querySelector("ul").scrollTo({top:0,left:this.shadowRoot.querySelector("[aria-current]").offsetLeft,behavior:"smooth"})}),150)}}));window.matchMedia("(min-width: 64em)").addListener((t=>{t.matches&&(this._removeLock(),this._nav&&this._nav.classList.remove("nav-hidden"))})),this.addEventListener("keyup",(t=>{"Escape"===t.code&&(this._closeNav(),this._toggleButton.focus())}))}_getSectionInView(){for(let t=0;t<this._headings.length;t++){const e=this._headings[t].offsetTop,i=this._headings[t+1]?this._headings[t+1].offsetTop:this.getBoundingClientRect().height,n=(document.documentElement.scrollTop||document.body.scrollTop)-(this.getBoundingClientRect().top+window.pageYOffset)+(this._options.offset+1);if(n>e&&n<=i)return this._headings[t]}}_getItems(){this._headings.forEach((t=>{let e=t.getAttribute("id"),i=t.textContent;e||(e=n(),t.setAttribute("id",e)),t.dataset.heading&&(i=t.dataset.heading),this._links.push({label:i,id:e})}))}_removeLock(){document.documentElement.classList.remove("wm-is-locked")}_closeNav(){this._removeLock(),this._nav.classList.add("nav-hidden"),"toggle"===this.nav&&this._toggleButton.setAttribute("aria-expanded",!1)}render(){return i`
+`];class s extends e{static properties={highlight:{type:String,reflect:!0},type:{type:String,reflect:!0},nav:{type:String,reflect:!0},contentsize:{type:String,reflect:!0},_links:{type:Array,attribute:!1}};static styles=[a,r];get _headings(){return this.querySelectorAll(':is(h2[id], h3[id], [data-heading]):not([data-heading="false"])')??null}get _nav(){return this.shadowRoot.querySelector("nav")??null}get _toggleButton(){return document.querySelector(".wm-section-toggle button")??null}constructor(){super(),this.highlight=void 0,this.type=void 0,this.nav=void 0,this.contentsize="full",this._links=[],this._options={offset:0}}updated(t){t.has("nav")&&this._addControls(),t.has("nav")&&document.documentElement.classList.add(`wm-has-nav-${this.nav}`)}connectedCallback(){super.connectedCallback(),this._getItems(),this._addGlobalEvents()}_getOffsetFromTopEdge(){this._options.offset=16*(parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--header-height"))+parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--header-nav-height"))+parseFloat(getComputedStyle(this).getPropertyValue("--header-nav-sec-height"))+2)}_addControls(){if("toggle"===this.nav){const t=document.querySelector("wm-header"),e=this.shadowRoot.querySelector("#toggle-button").content.cloneNode(!0).children[0],n=e.querySelector("button");e.addEventListener("click",(()=>{this._nav.classList.toggle("nav-hidden"),document.documentElement.classList.toggle("wm-is-locked");const t="true"===n.getAttribute("aria-expanded");n.setAttribute("aria-expanded",!t),t||setTimeout((()=>{this.shadowRoot.querySelectorAll("a")[0].focus()}),100)})),t.addAction(e)}}_addGlobalEvents(){let t;this._getOffsetFromTopEdge(),window.addEventListener("scroll",(()=>{if(this._getSectionInView()){this.shadowRoot.querySelectorAll("[aria-current]").forEach((t=>t.removeAttribute("aria-current")));this.shadowRoot.querySelector(`[href="#${this._getSectionInView().getAttribute("id")}"]`).setAttribute("aria-current",!0),window.clearTimeout(t),t=setTimeout((()=>{"scroll"===this.nav&&this._nav.querySelector("ul").scrollTo({top:0,left:this.shadowRoot.querySelector("[aria-current]").offsetLeft,behavior:"smooth"})}),150)}}));window.matchMedia("(min-width: 64em)").addListener((t=>{t.matches&&(this._removeLock(),this._nav&&this._nav.classList.remove("nav-hidden"))})),this.addEventListener("keyup",(t=>{"Escape"===t.code&&(this._closeNav(),this._toggleButton.focus())}))}_getSectionInView(){for(let t=0;t<this._headings.length;t++){const e=this._headings[t].offsetTop,n=this._headings[t+1]?this._headings[t+1].offsetTop:this.getBoundingClientRect().height,i=(document.documentElement.scrollTop||document.body.scrollTop)-(this.getBoundingClientRect().top+window.pageYOffset)+(this._options.offset+1);if(i>e&&i<=n)return this._headings[t]}}_getItems(){this._headings.forEach((t=>{let e=t.getAttribute("id"),n=t.textContent;e||(e=i(),t.setAttribute("id",e)),t.dataset.heading&&(n=t.dataset.heading),this._links.push({label:n,id:e})}))}_removeLock(){document.documentElement.classList.remove("wm-is-locked")}_closeNav(){this._removeLock(),this._nav&&this._nav.classList.add("nav-hidden"),"toggle"===this.nav&&this._toggleButton.setAttribute("aria-expanded",!1)}render(){return n`
       <div class="section-content">
         <slot></slot>
       </div>
-      ${o(void 0!==this.nav,(()=>i`<nav class="nav-hidden" part="nav">
+      ${o(void 0!==this.nav,(()=>n`<nav class="nav-hidden" part="nav">
         <ul>
-          ${this._links.map((t=>i`
+          ${this._links.map((t=>n`
               <li>
                 <a href="#${t.id}" @click="${this._closeNav}">
                   ${t.label}
@@ -206,7 +219,7 @@ import{i as t,s as e,y as i}from"../../lit-element-a22611a3.js";import{randomHas
               </li>
             `))}
         </ul>
-      </nav>`),(()=>i``))}
+      </nav>`),(()=>n``))}
       <template id="toggle-button">
         <wm-button kind="clean" class="wm-section-toggle">
           <button aria-expanded="false">

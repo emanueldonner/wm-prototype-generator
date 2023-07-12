@@ -19,12 +19,15 @@ import{i as t,s as r,y as e}from"../../lit-element-a22611a3.js";const o=[t`
 }
 
 :host {
+  /*
+  TODO: use tokens instead of vars for each color
+  */
   --tag-background-frischgruen: var(--wm-color-frischgruen);
   --tag-border-frischgruen: var(--wm-color-frischgruen);
-  --tag-background-interaktiv: var(--wm-color-ui-interactive);
-  --tag-border-interaktiv: var(--wm-color-ui-interactive);
-  --tag-color-interaktiv: var(--wm-color-weiss);
-  --tag-color-interaktiv-hover: var(--wm-color-ui-interactive);
+  --tag-background-interactive: var(--wm-color-ui-interactive);
+  --tag-border-interactive: var(--wm-color-ui-interactive);
+  --tag-color-interactive: var(--wm-color-weiss);
+  --tag-color-interactive-hover: var(--wm-color-ui-interactive);
 }
 
 :host {
@@ -34,20 +37,20 @@ import{i as t,s as r,y as e}from"../../lit-element-a22611a3.js";const o=[t`
   position: relative;
 }
 
-:host([color=gruen]) {
+:host([color=frischgruen]) {
   --tag-background: var(--tag-background-frischgruen);
   --tag-border: var(--tag-border-frischgruen);
 }
 
-:host([color=interaktiv]){
-  --tag-background: var(--tag-background-interaktiv);
-  --tag-border: var(--tag-border-interaktiv);
-  --link-color: var(--tag-color-interaktiv)
+:host([color=interactive]){
+  --tag-background: var(--tag-background-interactive);
+  --tag-border: var(--tag-border-interactive);
+  --link-color: var(--tag-color-interactive)
 }
 
-:host([color=interaktiv]) :is(a, wm-button):where(:hover, :focus){
-  --tag-border:var(--tag-background-interaktiv);
-  color: var(--tag-color-interaktiv-hover);
+:host([color=interactive]) :is(a, wm-button):where(:hover, :focus){
+  --tag-border:var(--tag-background-interactive);
+  color: var(--tag-color-interactive-hover);
 }
 
 :host > a, wm-button {
@@ -85,6 +88,11 @@ a:is(:link, :visited) {
 
 :is(a, wm-button):where(:hover, :focus) {
   --tag-background: var(--tag-background-hover);
+}
+
+:is(a, wm-button):focus-visible {
+  outline: var(--site-focus-outline-width) solid var(--wm-color-ui-interactive);
+  outline-offset: 3px;
 }
 
 ul {
