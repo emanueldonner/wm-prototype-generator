@@ -8,6 +8,8 @@ export const selectedComponent = writable(null);
 
 export const canvasElements = writable([]);
 
+export const mode = writable('edit');
+
 export const defaultComponentStore = readable([
 	{
 		title: 'Accordion',

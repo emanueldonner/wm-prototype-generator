@@ -1,35 +1,43 @@
 <script>
 	// @ts-nocheck
+	import InteractiveComponent from './InteractiveComponent.svelte';
 	import TextComponent from './TextComponent.svelte';
 	export let componentData = {};
-	// Map of component names to HTML tags
-	const tagMap = {
-		'wm-accordion': 'div',
-		'wm-card': 'div',
-		'wm-cta': 'div',
-		h3: 'h3',
-		div: 'div',
-		p: 'p',
-		ul: 'ul',
-		li: 'li',
-		a: 'a',
-		img: 'img'
-		// Add more mappings as needed
+	// export let addElementAt = () => {};
+	// export let componentIndex = 0;
+	// export let collections;
+	// export let templates;
+
+	// This will be triggered whenever componentData changes.
+	$: key = componentData;
+	console.log('componentData:', componentData);
+
+	const isWebComponent = (component) => {
+		return component.startsWith('wm-');
 	};
 </script>
 
-<svelte:element
-	this={tagMap[componentData.component]}
-	class={componentData.component}
-	{...componentData.props}
->
-	{#each componentData.children as child, index (index)}
-		{#if child.component === 'text'}
-			{@html child.content}
-		{:else if child.component}
-			<svelte:self key={index} componentData={child} />
-		{:else}
-			{child}
-		{/if}
-	{/each}
-</svelte:element>
+{#key key}
+	{#if componentData.children}
+		<svelte:element this={componentData.component} class="w-full h-full" {...componentData.props}>
+			{#each componentData.children as child, index (index)}
+				{#if child.component === 'text'}
+					<TextComponent key={index} content={child.content} />
+					<!-- {:else if child.component && isWebComponent(child.component)}
+					<InteractiveComponent
+						key={index}
+						componentData={child}
+						{addElementAt}
+						index={componentIndex}
+						{collections}
+						{templates}
+					/> -->
+				{:else if child.component}
+					<svelte:self key={index} componentData={child} />
+				{:else}
+					<div key={index}>{child}</div>
+				{/if}
+			{/each}
+		</svelte:element>
+	{/if}
+{/key}

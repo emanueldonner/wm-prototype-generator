@@ -8,9 +8,10 @@
 	import { dndzone } from 'svelte-dnd-action';
 	import ElementList from './patterns/ElementList.svelte';
 	import { templateStore, collectionStore } from './patterns/patternStore.js';
-	import { canvasElements } from '../stores.js';
+	import { canvasElements, mode } from '../stores.js';
 
 	import InteractiveComponent from './patterns/InteractiveComponent.svelte';
+	import DynamicComponent from './patterns/DynamicComponent.svelte';
 
 	// let accordionData = derived(templateStore, ($templateStore) => $templateStore.accordionData);
 	// let cardData = derived(templateStore, ($templateStore) => $templateStore.cardData);
@@ -83,25 +84,37 @@
 	const flipDurationMs = 300;
 </script>
 
-<div>
-	<ElementList {addElementAt} index={0} {templates} {collections} />
+{#if $mode === 'edit'}
+	<div>
+		<ElementList {addElementAt} index={0} {templates} {collections} />
 
-	<section
-		use:dndzone={{ items: $canvasElements, flipDurationMs }}
-		on:consider={handleDndConsider}
-		on:finalize={handleDndFinalize}
-	>
-		{#each $canvasElements as element, index (element.id)}
-			<div animate:flip={{ duration: flipDurationMs }}>
-				<InteractiveComponent
-					key={element.id}
-					componentData={element}
-					{addElementAt}
-					{index}
-					{collections}
-					{templates}
-				/>
-			</div>
-		{/each}
-	</section>
-</div>
+		<section
+			use:dndzone={{ items: $canvasElements, flipDurationMs }}
+			on:consider={handleDndConsider}
+			on:finalize={handleDndFinalize}
+		>
+			{#each $canvasElements as element, index (element.id)}
+				<div animate:flip={{ duration: flipDurationMs }}>
+					<InteractiveComponent
+						key={element.id}
+						componentData={element}
+						{addElementAt}
+						{index}
+						{collections}
+						{templates}
+					/>
+				</div>
+			{/each}
+		</section>
+	</div>{:else}
+	{#each $canvasElements as element, index (element.id)}
+		<DynamicComponent
+			key={element.id}
+			componentData={element}
+			{addElementAt}
+			{index}
+			{collections}
+			{templates}
+		/>
+	{/each}
+{/if}

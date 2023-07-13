@@ -1,12 +1,12 @@
 <script>
 	import { AppShell, AppBar, LightSwitch } from '@skeletonlabs/skeleton';
+	import { SlideToggle } from '@skeletonlabs/skeleton';
 	import PageHeader from '../components/PageHeader.svelte';
 	import PageFooter from '../components/PageFooter.svelte';
 	import Sidebar from '../components/Sidebar.svelte';
 	import ConfigSidebar from '../components/ConfigSidebar/ConfigSidebar.svelte';
 	import { componentList } from '../constants/componentList';
-
-	import { showConfigSidebar } from '../stores';
+	import { showConfigSidebar, mode } from '../stores';
 
 	import.meta.glob('./src/constants/components/**/styles/*.melange.tokens.css');
 	import.meta.glob('./src/constants/components/**/styles/*.nojs.css');
@@ -18,6 +18,14 @@
 	import '@skeletonlabs/skeleton/styles/skeleton.css';
 	// Most of your app wide CSS should be put in this file
 	import '../app.postcss';
+
+	const updateMode = () => {
+		if ($mode === 'edit') {
+			mode.set('preview');
+		} else {
+			mode.set('edit');
+		}
+	};
 </script>
 
 <!-- {#each componentList as component}
@@ -30,7 +38,12 @@
 	<svelte:fragment slot="header">
 		<AppBar class="bg-surface-100-800-token">
 			<svelte:fragment slot="lead">Prototyp Generator</svelte:fragment>
-
+			<SlideToggle
+				name="slider-label"
+				on:change={(e) => {
+					updateMode();
+				}}>{$mode}</SlideToggle
+			>
 			<svelte:fragment slot="trail">v0.0.3</svelte:fragment>
 		</AppBar>
 		<!-- <LightSwitch /> -->
@@ -56,6 +69,7 @@
 	<svelte:fragment slot="pageFooter">
 		<PageFooter />
 	</svelte:fragment>
+	<!-- (footer) -->
 	<!-- (footer) -->
 	<!-- (footer) -->
 	<!-- (footer) -->
