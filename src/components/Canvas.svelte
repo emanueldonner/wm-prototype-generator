@@ -4,6 +4,7 @@
 	import { get, derived } from 'svelte/store';
 	import _ from 'lodash';
 	import { flip } from 'svelte/animate';
+	import { v4 as uuidv4 } from 'uuid';
 	import DynamicComponent from './patterns/DynamicEditComponent.svelte';
 	import IconEdit from '~icons/mdi/edit';
 	import { dndzone } from 'svelte-dnd-action';
@@ -16,12 +17,10 @@
 	let templates = derived(templateStore, ($templateStore) => Object.keys($templateStore));
 	let showElementList = false;
 
-	let idCounter = 0;
-
 	function addElementAt(templateName, index) {
 		// Generate a random ID for the new element.
 		console.log('addElementAt:', templateName, index);
-		const id = idCounter++;
+		const id = uuidv4();
 		let actElement = $templateStore[templateName];
 		console.log('actElement:', actElement);
 		let newElement = _.cloneDeep(actElement);
@@ -56,7 +55,7 @@
 		{#each $canvasElements as element, index (element.id)}
 			<div
 				animate:flip={{ duration: flipDurationMs }}
-				class="group flex flex-col items-center justify-center w-full h-full bg-white border-2 border-dashed border-transparent hover:border-gray-100 rounded-lg"
+				class="group flex flex-col items-center justify-center w-full h-full border-2 border-dashed border-transparent transition duration-300 ease-in-out hover:bg-slate-100 hover:border-gray-100 rounded-lg"
 			>
 				<div
 					class="w-full h-6 bg-slate-400 flex justify-end transition-opacity duration-300 ease-in-out rounded-t-lg opacity-0 group-hover:opacity-100"
@@ -75,30 +74,5 @@
 				<ElementList {addElementAt} index={index + 1} {templates} />
 			</div>
 		{/each}
-		<!-- <hr />
-		<div style="position: relative">
-			<DynamicComponent componentData={$accordionData} selected={$selectedComponent} />
-			<button
-				style="position: absolute; top: 0; right: 0;"
-				on:click={() => {
-					selectedComponent.set($accordionData);
-					console.log('selectedComponent', $selectedComponent);
-				}}
-			>
-				<IconEdit />
-			</button>
-		</div>
-		<div style="position: relative">
-			<DynamicComponent componentData={$cardData} selected={$selectedComponent} />
-			<button
-				style="position: absolute; top: 0; right: 0;"
-				on:click={() => {
-					selectedComponent.set($cardData);
-					console.log('selectedComponent', $selectedComponent);
-				}}
-			>
-				<IconEdit />
-			</button>
-		</div> -->
 	</section>
 </div>
