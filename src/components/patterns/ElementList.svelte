@@ -3,6 +3,7 @@
 	import IconAdd from '~icons/mdi/add-bold';
 	export let addElementAt;
 	export let templates;
+	export let collections;
 	export let index;
 	let showElementList = false;
 	$: active_class = showElementList ? 'rotate-45' : '';
@@ -20,16 +21,30 @@
 	</button>
 	{#if showElementList}
 		<div class="grid grid-cols-2 gap-0.5">
-			{#each $templates as template}
-				<button
-					on:click={() => {
-						addElementAt(template, index);
-						showElementList = false;
-					}}
-				>
-					{template.charAt(0).toUpperCase() + template.slice(1).replace('Data', '')}
-				</button>
-			{/each}
+			{#if $collections}
+				{#each $collections as collection}
+					<button
+						on:click={() => {
+							addElementAt('collection', collection, index);
+							showElementList = false;
+						}}
+					>
+						{collection.charAt(0).toUpperCase() + collection.slice(1).replace('Data', '')}
+					</button>
+				{/each}
+			{/if}
+			{#if $templates}
+				{#each $templates as template}
+					<button
+						on:click={() => {
+							addElementAt('template', template, index);
+							showElementList = false;
+						}}
+					>
+						{template.charAt(0).toUpperCase() + template.slice(1).replace('Data', '')}
+					</button>
+				{/each}
+			{/if}
 		</div>
 	{/if}
 </div>
