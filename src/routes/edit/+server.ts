@@ -1,24 +1,25 @@
 import type { RequestHandler } from '@sveltejs/kit';
 import { getAllCanvases, createCanvas, updateCanvas, getCanvas } from '$lib/server/db';
 import { json } from '@sveltejs/kit';
+import { request } from 'http';
 
-export async function GET(requestEvent) {
-	console.log('get request!', requestEvent.request);
-	const { request } = requestEvent;
-	const { requestType } = await request.json();
-	console.log('request', id);
-	if (requestType === 'getAllCanvases') {
+export async function GET({ url }) {
+	// console.log('get request!', requestEvent.request);
+	const id = url.searchParams.get('id') || '';
+	const type = url.searchParams.get('requestType') || '';
+	if (type === 'getAllCanvases') {
 		try {
 			const canvases = getAllCanvases();
+			console.log('canvases', canvases);
 			return json(canvases);
 		} catch (error) {
 			console.error(error);
 
 			return new Response('error', { status: 500 });
 		}
-	} else if (requestType === 'getCanvas') {
+	} else if (type === 'getCanvas') {
 		try {
-			const { id } = await request.json();
+			let id = url.searchParams.get('id') || '';
 			const canvas = getCanvas(id);
 			return json(canvas);
 		} catch (error) {

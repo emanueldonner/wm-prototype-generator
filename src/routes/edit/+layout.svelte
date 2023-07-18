@@ -56,11 +56,11 @@
 		</AppBar>
 		<!-- <LightSwitch /> -->
 	</svelte:fragment>
-	<!-- <svelte:fragment slot="sidebarLeft">
+	<svelte:fragment slot="sidebarLeft">
 		<div id="sidebar-left" class="hidden md:block md:w-96 lg:h-full bg-slate-200">
 			<Sidebar />
 		</div>
-	</svelte:fragment> -->
+	</svelte:fragment>
 	<svelte:fragment slot="sidebarRight">
 		{#if $mode === 'edit' && $showConfigSidebar}
 			<div class="hidden md:block md:w-96 lg:h-full bg-slate-200">

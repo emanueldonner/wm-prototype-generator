@@ -43,7 +43,7 @@ export function createCanvas(name: string, state: string): Canvas {
 	return { id, name, state };
 }
 // Get a canvas by id
-export function getCanvas(id: number): Canvas | null {
+export function getCanvas(id: string): Canvas | null {
 	const select = db.prepare('SELECT * FROM Canvas WHERE id = ?');
 	const canvas = select.get(id) as DBCanvas;
 

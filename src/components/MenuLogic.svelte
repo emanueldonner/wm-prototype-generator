@@ -1,10 +1,11 @@
 <script>
 	// @ts-nocheck
 
-	import { canvasStore } from '../stores.js';
+	import { canvasStore, canvasElements } from '../stores.js';
 
 	let canvas;
 	let canvases;
+	let showCanvasList = false;
 	canvasStore.subscribe((value) => {
 		canvas = value;
 	});
@@ -13,17 +14,10 @@
 	canvasId = canvas.id;
 
 	async function showAllCanvases() {
-		const response = await fetch('/edit', {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			params: JSON.stringify({
-				requestType: 'getAllCanvases'
-			})
-		});
+		const response = await fetch('/edit?requestType=getAllCanvases');
 
 		if (response.ok) {
+			showCanvasList = true;
 			canvases = await response.json();
 			console.log('Canvases loaded successfully.', canvases);
 		} else {
@@ -32,16 +26,7 @@
 	}
 
 	async function loadCanvas() {
-		const response = await fetch(`/edit/`, {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			params: JSON.stringify({
-				id: canvasId,
-				requestType: 'getCanvas'
-			})
-		});
+		const response = await fetch(`/edit?requestType=getCanvas&id=${canvasId}`);
 
 		if (response.ok) {
 			const { id, name, state } = await response.json();
@@ -49,6 +34,8 @@
 			canvasId = id;
 			canvasName = name;
 			canvasStore.update((canvas) => ({ ...canvas, state: JSON.parse(state) }));
+			canvasElements.update((elements) => JSON.parse(state));
+			showCanvasList = false;
 		} else {
 			console.log('Error loading canvas.');
 		}
@@ -82,9 +69,9 @@
 </script>
 
 <button on:click={saveCurrentState}>Save</button>
-<!-- <button on:click={showAllCanvases}>Load</button>
+<button on:click={showAllCanvases}>Load</button>
 <div>
-	{#if canvases}
+	{#if canvases && showCanvasList}
 		{#each canvases as canvas}
 			<button
 				on:click={() => {
@@ -94,4 +81,4 @@
 			>
 		{/each}
 	{/if}
-</div> -->
+</div>
