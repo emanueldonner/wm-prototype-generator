@@ -1,5 +1,4 @@
-<script>
-	import Canvas from '../components/Canvas.svelte';
-</script>
+hello
 
-<Canvas />
+<a href="/edit">edit</a>
+<a href="/preview">preview</a>

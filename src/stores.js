@@ -10,6 +10,15 @@ export const canvasElements = writable([]);
 
 export const mode = writable('edit');
 
+// Initialize with a default canvas. You might want to load this from the server.
+const defaultCanvas = {
+	id: '',
+	name: '',
+	state: null
+};
+
+export const canvasStore = writable(defaultCanvas);
+
 export const defaultComponentStore = readable([
 	{
 		title: 'Accordion',

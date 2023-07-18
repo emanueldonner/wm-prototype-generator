@@ -10,3 +10,21 @@
 		<small>© Stadt Wien, Rathaus, A-1010 Wien</small>
 	</p>
 </footer>
+
+<style>
+	footer {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem;
+	}
+	ul {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		gap: 0.6rem;
+	}
+</style>

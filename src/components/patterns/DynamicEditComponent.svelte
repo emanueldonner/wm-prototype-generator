@@ -23,7 +23,7 @@
 			{#each componentData.children as child, index (index)}
 				{#if child.component === 'text'}
 					<TextComponent key={index} content={child.content} />
-					<!-- {:else if child.component && isWebComponent(child.component)}
+				{:else if child.component && isWebComponent(child.component)}
 					<InteractiveComponent
 						key={index}
 						componentData={child}
@@ -31,7 +31,7 @@
 						index={componentIndex}
 						{collections}
 						{templates}
-					/> -->
+					/>
 				{:else if child.component}
 					<svelte:self key={index} componentData={child} />
 				{:else}

@@ -6,12 +6,13 @@
 	import { flip } from 'svelte/animate';
 	import { v4 as uuidv4 } from 'uuid';
 	import { dndzone } from 'svelte-dnd-action';
+	import { Modal, modalStore } from '@skeletonlabs/skeleton';
 	import ElementList from './patterns/ElementList.svelte';
 	import { templateStore, collectionStore } from './patterns/patternStore.js';
-	import { canvasElements, mode } from '../stores.js';
-
+	import { canvasElements, mode, canvasStore } from '../stores.js';
 	import InteractiveComponent from './patterns/InteractiveComponent.svelte';
 	import DynamicComponent from './patterns/DynamicComponent.svelte';
+	// import { saveCanvas } from '$lib/server/db';
 
 	// let accordionData = derived(templateStore, ($templateStore) => $templateStore.accordionData);
 	// let cardData = derived(templateStore, ($templateStore) => $templateStore.cardData);
@@ -19,7 +20,12 @@
 	let collections = derived(collectionStore, ($collectionStore) => Object.keys($collectionStore));
 	let showElementList = false;
 
-	$: console.log('canvasElements:', $canvasElements);
+	$: {
+		console.log('canvasElements:', $canvasElements);
+		canvasStore.update((canvas) => ({ ...canvas, state: $canvasElements }));
+	}
+	let canvasName = '';
+	let canvasId = '';
 
 	function addElementAt(type, templateName, index) {
 		if (type === 'template') {
@@ -72,8 +78,28 @@
 		return newElement; // return the new element for inclusion in the parent's 'children' array
 	};
 
-	// This function will be called whenever the order of items changes due to drag and drop
+	function deleteElementAt(index) {
+		const modal = {
+			type: 'confirm',
+			// zIndex: 1000,
+			// background: 'bg-white',
+			title: 'Element löschen?',
+			body: 'Soll das Element wirklich gelöscht werden?',
+			// TRUE if confirm pressed, FALSE if cancel pressed
+			response: (r) => (r ? destroyElement(index) : null)
+		};
+		modalStore.trigger(modal);
+	}
 
+	function destroyElement(index) {
+		canvasElements.update((elements) => {
+			let newElements = [...elements];
+			newElements.splice(index, 1);
+			return newElements;
+		});
+	}
+
+	// This function will be called whenever the order of items changes due to drag and drop
 	function handleDndConsider(e) {
 		$canvasElements = e.detail.items;
 	}
@@ -86,6 +112,7 @@
 
 {#if $mode === 'edit'}
 	<div>
+		<Modal />
 		<ElementList {addElementAt} index={0} {templates} {collections} />
 
 		<section
@@ -98,6 +125,7 @@
 					<InteractiveComponent
 						key={element.id}
 						componentData={element}
+						{deleteElementAt}
 						{addElementAt}
 						{index}
 						{collections}
@@ -118,3 +146,9 @@
 		/>
 	{/each}
 {/if}
+
+<style>
+	.modal {
+		background-color: aliceblue !important;
+	}
+</style>
