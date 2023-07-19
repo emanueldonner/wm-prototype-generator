@@ -26,10 +26,8 @@
    [x] Implement database access layer for saving and loading canvas state
    [x] Implement server-side routes for saving and loading canvas state
    [x] Implement error handling for database operations
-6. Main Site Configuration:
-   [ ] Main Header / Menu
-   [ ] Toggle: is Microsite?
-   6B. Complex Structures and Rules:
+
+6. Complex Structures and Rules:
    [ ] Implement support for nested elements in ElementList
    [ ] Implement rules to prevent certain elements from being nested within other elements
    [ ] Add user interface for creating and managing complex structures
@@ -38,10 +36,13 @@
    [ ] Refine preview section
    [ ] Implement an export section where users can export the canvas in various formats (HTML, JSON, etc.)
 8. Additional features:
-   [ ] Implement loading of canvas state from server
-   [ ] Add ability to switch between canvases
+   [*] Implement loading of canvas state from server
+   [*] Add ability to switch between canvases
    [ ] Add ability to create new canvases
    [ ] Implement user interface for selecting, creating, and managing canvases
+   8B. Main Site Configuration:
+   [ ] Main Header / Menu
+   [ ] Toggle: is Microsite?
 9. Testing and Deployment:
    [ ] Test all functionality
    [ ] Fix any bugs or issues

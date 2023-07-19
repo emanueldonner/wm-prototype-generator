@@ -1792,6 +1792,304 @@ export const templateStore = writable({
 				]
 			}
 		]
+	},
+	CarouselData: {
+		component: 'wm-carousel',
+		props: {
+			update: ''
+		},
+		children: [
+			{
+				component: 'wm-card',
+				props: {
+					size: 'm',
+					blocklink: '',
+					class: 'first',
+					inert: ''
+				},
+				children: [
+					{
+						component: 'h3',
+						props: {
+							slot: 'heading'
+						},
+						children: [
+							{
+								component: 'a',
+								props: {
+									href: '#'
+								},
+								children: [
+									{
+										component: 'text',
+										content: 'Erzherzog-Karl-Straße Süd - Lebenswertes Wohnquartier'
+									}
+								]
+							}
+						]
+					},
+					{
+						component: 'div',
+						props: {
+							slot: 'content'
+						},
+						children: [
+							{
+								component: 'p',
+								children: [
+									{
+										component: 'text',
+										content:
+											'Auf dem rund 19 Hektar großen Gebiet "Erzherzog-Karl-Straße Süd" im 22. Bezirk soll ein Wohnquartier mit Grün- und Freiräumen entstehen.'
+									}
+								]
+							}
+						]
+					},
+					{
+						component: 'img',
+						props: {
+							src: '/images/pattern/cards/parkpickerl-prater.jpg',
+							width: '350',
+							height: '197',
+							slot: 'media'
+						}
+					}
+				]
+			},
+			{
+				component: 'wm-card',
+				props: {
+					size: 'm',
+					blocklink: '',
+					class: 'current',
+					inert: ''
+				},
+				children: [
+					{
+						component: 'h3',
+						props: {
+							slot: 'heading'
+						},
+						children: [
+							{
+								component: 'a',
+								props: {
+									href: '#'
+								},
+								children: [
+									{
+										component: 'text',
+										content: 'Oberlaa und Umgebung'
+									}
+								]
+							}
+						]
+					},
+					{
+						component: 'div',
+						props: {
+							slot: 'content'
+						},
+						children: [
+							{
+								component: 'p',
+								children: [
+									{
+										component: 'text',
+										content:
+											'Seit Oktober 2019 gilt eine Bausperre für die Ortskerne von Oberlaa und Unterlaa, um die historischen Gebäude zu erhalten.'
+									}
+								]
+							}
+						]
+					},
+					{
+						component: 'img',
+						props: {
+							src: '/images/pattern/cards/parkpickerl-prater.jpg',
+							width: '350',
+							height: '197',
+							slot: 'media'
+						}
+					}
+				]
+			},
+			{
+				component: 'wm-card',
+				props: {
+					size: 'm',
+					blocklink: '',
+					class: '',
+					inert: ''
+				},
+				children: [
+					{
+						component: 'h3',
+						props: {
+							slot: 'heading'
+						},
+						children: [
+							{
+								component: 'a',
+								props: {
+									href: '#'
+								},
+								children: [
+									{
+										component: 'text',
+										content: 'aspern Die Seestadt Wiens'
+									}
+								]
+							}
+						]
+					},
+					{
+						component: 'div',
+						props: {
+							slot: 'content'
+						},
+						children: [
+							{
+								component: 'p',
+								children: [
+									{
+										component: 'text',
+										content:
+											'In mehreren Etappen entstehen im 22. Bezirk hochwertiger Wohnraum für mehr als 25.000 Menschen und über 20.000 Arbeits- und Ausbildungsplätze.'
+									}
+								]
+							}
+						]
+					},
+					{
+						component: 'img',
+						props: {
+							src: '/images/pattern/cards/parkpickerl-prater.jpg',
+							width: '350',
+							height: '197',
+							slot: 'media'
+						}
+					}
+				]
+			},
+			{
+				component: 'wm-card',
+				props: {
+					size: 'm',
+					blocklink: '',
+					class: '',
+					inert: ''
+				},
+				children: [
+					{
+						component: 'h3',
+						props: {
+							slot: 'heading'
+						},
+						children: [
+							{
+								component: 'a',
+								props: {
+									href: '#'
+								},
+								children: [
+									{
+										component: 'text',
+										content: 'Erzherzog-Karl-Straße Süd - Lebenswertes Wohnquartier'
+									}
+								]
+							}
+						]
+					},
+					{
+						component: 'div',
+						props: {
+							slot: 'content'
+						},
+						children: [
+							{
+								component: 'p',
+								children: [
+									{
+										component: 'text',
+										content:
+											'Auf dem rund 19 Hektar großen Gebiet "Erzherzog-Karl-Straße Süd" im 22. Bezirk soll ein Wohnquartier mit Grün- und Freiräumen entstehen.'
+									}
+								]
+							}
+						]
+					},
+					{
+						component: 'img',
+						props: {
+							src: '/images/pattern/cards/parkpickerl-prater.jpg',
+							width: '350',
+							height: '197',
+							slot: 'media'
+						}
+					}
+				]
+			},
+			{
+				component: 'wm-card',
+				props: {
+					size: 'm',
+					blocklink: '',
+					class: 'last',
+					inert: ''
+				},
+				children: [
+					{
+						component: 'h3',
+						props: {
+							slot: 'heading'
+						},
+						children: [
+							{
+								component: 'a',
+								props: {
+									href: '#'
+								},
+								children: [
+									{
+										component: 'text',
+										content: 'Oberlaa und Umgebung'
+									}
+								]
+							}
+						]
+					},
+					{
+						component: 'div',
+						props: {
+							slot: 'content'
+						},
+						children: [
+							{
+								component: 'p',
+								children: [
+									{
+										component: 'text',
+										content:
+											'Seit Oktober 2019 gilt eine Bausperre für die Ortskerne von Oberlaa und Unterlaa, um die historischen Gebäude zu erhalten.'
+									}
+								]
+							}
+						]
+					},
+					{
+						component: 'img',
+						props: {
+							src: '/images/pattern/cards/parkpickerl-prater.jpg',
+							width: '350',
+							height: '197',
+							slot: 'media'
+						}
+					}
+				]
+			}
+		]
 	}
 });
 

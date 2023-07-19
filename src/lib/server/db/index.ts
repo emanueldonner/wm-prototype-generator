@@ -1,55 +1,43 @@
-import Database from 'better-sqlite3';
 import type { Canvas } from './types';
-import { DB_PATH } from '$env/static/private';
+import { supabase } from '$lib/server/db/supabaseClient';
 import { v4 as uuidv4 } from 'uuid';
 
-const db = new Database(DB_PATH);
-
-// Create the table
-db.exec(`
-  CREATE TABLE IF NOT EXISTS Canvas (
-    id TEXT PRIMARY KEY,
-    name TEXT,
-    state TEXT
-  )
-`);
-
-interface DBCanvas {
-	id: string;
-	name: string;
-	state: string;
-}
-
 // Get all canvases
-export function getAllCanvases(): Canvas[] {
-	console.log('getAllCanvases');
-	const select = db.prepare('SELECT * FROM Canvas');
-	const canvases = select.all() as DBCanvas[];
-
-	return canvases.map((canvas) => ({
+export async function getAllCanvases(): Promise<Canvas[]> {
+	let { data: canvases, error } = await supabase.from('canvas_table').select('*');
+	if (error) throw error;
+	if (!canvases) return [];
+	// console.log('canvases', canvases);
+	const mappedCanvases = await canvases.map((canvas) => ({
 		id: canvas.id,
 		name: canvas.name,
 		state: JSON.parse(canvas.state)
 	}));
+	console.log('mappedCanvases', mappedCanvases);
+	return mappedCanvases;
 }
 
 // Save a canvas
-export function createCanvas(name: string, state: string): Canvas {
+export async function createCanvas(name: string, state: string): Promise<Canvas> {
 	const id = uuidv4();
-	const insert = db.prepare('INSERT INTO Canvas (id, name, state) VALUES (?, ?, ?)');
-	console.log('insert', id, name, state);
-	insert.run(id, name, JSON.stringify(state));
+	console.log('id', id);
+	const { data: canvas, error } = await supabase.from('canvas_table').insert([{ id, name, state }]);
+
+	if (error) throw error;
 
 	return { id, name, state };
 }
-// Get a canvas by id
-export function getCanvas(id: string): Canvas | null {
-	const select = db.prepare('SELECT * FROM Canvas WHERE id = ?');
-	const canvas = select.get(id) as DBCanvas;
 
-	if (!canvas) {
-		return null;
-	}
+// Get a canvas by id
+export async function getCanvas(id: string): Promise<Canvas | null> {
+	const { data: canvas, error } = await supabase
+		.from('canvas_table')
+		.select('*')
+		.eq('id', id)
+		.single();
+
+	if (error) throw error;
+	if (!canvas) return null;
 
 	return {
 		id: canvas.id,
@@ -59,10 +47,12 @@ export function getCanvas(id: string): Canvas | null {
 }
 
 // Update a canvas
-export function updateCanvas(canvas: Canvas): Canvas {
+export async function updateCanvas(canvas: Canvas): Promise<Canvas> {
 	const { id, name, state } = canvas;
-	const update = db.prepare('UPDATE Canvas SET name = ?, state = ? WHERE id = ?');
-	update.run(name, JSON.stringify(state), id);
+
+	const { data, error } = await supabase.from('canvas_table').update({ name, state }).eq('id', id);
+
+	if (error) throw error;
 
 	return { id, name, state };
 }
