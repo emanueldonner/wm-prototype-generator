@@ -23,7 +23,6 @@
 		} else {
 			isComponentDefined = true;
 		}
-		console.log('isComponentDefined:', isComponentDefined);
 	});
 
 	const isWebComponent = (component) => {
@@ -37,11 +36,17 @@
 			<svelte:element this={componentData.component} {...componentData.props}>
 				{#each componentData.children as child, index (index)}
 					{#if child.component === 'text'}
-						text dyn
 						<TextComponent key={index} content={child.content} />
-					{:else if child.component && isWebComponent(child.component)}
-						inter dyn
-
+						<!-- {:else if child.component && isWebComponent(child.component)}
+						<svelte:self
+							key={index}
+							componentData={child}
+							{addElementAt}
+							index={componentIndex}
+							{collections}
+							{templates}
+						/> -->
+					{:else if ['Row', 'Column'].includes(child.component)}
 						<InteractiveComponent
 							key={index}
 							componentData={child}
@@ -50,12 +55,9 @@
 							{collections}
 							{templates}
 						/>
-						<!-- <svelte:self key={index} componentData={child} /> -->
 					{:else if child.component}
-						self dyn
 						<svelte:self key={index} componentData={child} />
 					{:else}
-						child dyn
 						<div key={index}>{child}</div>
 					{/if}
 				{/each}

@@ -1,7 +1,7 @@
 <script>
 	// @ts-nocheck
 
-	import DynamicComponent from './DynamicEditComponent.svelte';
+	import DynamicComponent from './DynamicPlaceholder.svelte';
 	import DynamicPlaceholder from './DynamicPlaceholder.svelte';
 	import ElementList from './ElementList.svelte';
 	import IconDelete from '~icons/mdi/delete-outline';
@@ -17,7 +17,8 @@
 </script>
 
 <div
-	class="group flex flex-col items-center justify-center w-full h-full border-2 border-dashed border-transparent transition duration-300 ease-in-out hover:bg-slate-100 hover:border-gray-200 rounded-lg"
+	class="{componentData === 'Row' &&
+		'row'} group flex flex-col items-center justify-center w-full h-full border-2 border-dashed border-transparent transition duration-300 ease-in-out hover:bg-slate-100 hover:border-gray-200 rounded-lg"
 >
 	<div
 		class="w-full h-6 bg-slate-400 transition-opacity duration-300 ease-in-out flex justify-between rounded-t-lg opacity-0 group-hover:opacity-100"
@@ -43,13 +44,33 @@
 			</button>
 		</div>
 	</div>
-	<DynamicPlaceholder
-		{componentData}
-		{addElementAt}
-		componentIndex={index}
-		{collections}
-		{templates}
-		selected={selectedComponent}
-	/>
+	{#if componentData.component === 'Row' || componentData.component === 'Column'}
+		{#each componentData.children as child, i (child.id)}
+			<svelte:self
+				key={child.id}
+				componentData={child}
+				{deleteElementAt}
+				{addElementAt}
+				index={i}
+				{collections}
+				{templates}
+			/>
+		{/each}
+	{:else}
+		<DynamicComponent
+			{componentData}
+			{addElementAt}
+			componentIndex={index}
+			{collections}
+			{templates}
+			selected={selectedComponent}
+		/>
+	{/if}
 	<ElementList {addElementAt} index={index + 1} {templates} />
 </div>
+
+<style>
+	.row {
+		display: flex;
+	}
+</style>

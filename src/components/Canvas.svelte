@@ -10,9 +10,10 @@
 	import ElementList from './patterns/ElementList.svelte';
 	import { templateStore, collectionStore } from './patterns/patternStore.js';
 	import { canvasElements, mode, canvasStore } from '../stores.js';
+	import Row from './patterns/Row.svelte';
 	import InteractiveComponent from './patterns/InteractiveComponent.svelte';
 	import DynamicComponent from './patterns/DynamicComponent.svelte';
-	// import { saveCanvas } from '$lib/server/db';
+	import { createRowsAndColumns } from '$lib/helpers';
 
 	// let accordionData = derived(templateStore, ($templateStore) => $templateStore.accordionData);
 	// let cardData = derived(templateStore, ($templateStore) => $templateStore.cardData);
@@ -24,8 +25,6 @@
 		console.log('canvasElements:', $canvasElements);
 		canvasStore.update((canvas) => ({ ...canvas, state: $canvasElements }));
 	}
-	let canvasName = '';
-	let canvasId = '';
 
 	function addElementAt(type, templateName, index) {
 		if (type === 'template') {
@@ -39,6 +38,10 @@
 		const id = uuidv4();
 		let actElement = $templateStore[templateName];
 		let newElement = _.cloneDeep(actElement);
+		console.log('newElement:', JSON.stringify(newElement, null, 2));
+		// Transform the data structure
+		newElement = createRowsAndColumns(newElement);
+		console.log('newTransformedElement:', JSON.stringify(newElement, null, 2));
 		canvasElements.update((elements) => {
 			let newElements = [...elements];
 			newElements.splice(index, 0, { ...newElement, id });
@@ -54,6 +57,10 @@
 		const id = uuidv4();
 		let actCollection = $collectionStore[collectionName];
 		let newElement = _.cloneDeep(actCollection);
+
+		// Transform the data structure
+		newElement = createRowsAndColumns(newElement);
+
 		canvasElements.update((elements) => {
 			let newElements = [...elements];
 			newElements.splice(index, 0, { ...newElement, id });
@@ -104,8 +111,20 @@
 		$canvasElements = e.detail.items;
 	}
 	function handleDndFinalize(e) {
-		$canvasElements = e.detail.items;
-		console.log('canvasElements:', $canvasElements);
+		const item = e.detail.items.find((item) => item.id === e.detail.id); // the dragged pattern
+
+		// find the index where the item was dropped
+		const dropPosition = e.detail.items.indexOf(item);
+
+		// remove the item from its original position
+		const dataCopy = [...$canvasElements];
+		dataCopy.splice(dataCopy.indexOf(item.data), 1);
+
+		// insert the item at the new position
+		dataCopy.splice(dropPosition, 0, item.data);
+
+		// update the canvasElements store
+		canvasElements.set(dataCopy);
 	}
 	const flipDurationMs = 300;
 </script>
